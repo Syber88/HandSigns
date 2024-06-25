@@ -19,14 +19,15 @@ for sign in os.listdir(Data_dir):
                 
         x_ = []
         y_ = []
+
         
-        image = cv2.imread(image_path)
-        rgb = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+        image = cv2.imread(os.path.join(Data_dir,sign,image_path))
+        rgb_image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
         
-        processed = hands.process(rgb)
+        processed = hands.process(rgb_image)
         
-        if processed.multi_hand_landmark:
-            for landmarks in processed.multi_hand_landmark:
+        if processed.multi_hand_landmarks:
+            for landmarks in processed.multi_hand_landmarks:
                 for i in range(len(landmarks.landmark)):
                     x = landmarks.landmark[i].x
                     y = landmarks.landmark[i].y
