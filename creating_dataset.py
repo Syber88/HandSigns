@@ -25,7 +25,7 @@ for sign in os.listdir(Data_dir):
     if not os.path.isdir(sign_path):
         continue
     
-    for image_name in os.listdir(sign_path)[:1]:
+    for image_name in os.listdir(sign_path):
         image_path = os.path.join(sign_path,image_name)
         data_aux = []
                 
@@ -44,11 +44,11 @@ for sign in os.listdir(Data_dir):
         
         if processed.multi_hand_landmarks:
             for landmarks in processed.multi_hand_landmarks:
-                mp_drawings.draw_landmarks(
-                    rgb_image,  landmarks, 
-                    mp_hands.HAND_CONNECTIONS,  mp_drawingUtils.get_default_hand_landmarks_style(),
-                    mp_drawingUtils.get_default_hand_connections_style()
-                )
+                # mp_drawings.draw_landmarks(
+                #     rgb_image,  landmarks, 
+                #     mp_hands.HAND_CONNECTIONS,  mp_drawingUtils.get_default_hand_landmarks_style(),
+                #     mp_drawingUtils.get_default_hand_connections_style()
+                # )
                 
                 # plt.figure()
                 # plt.imshow(rgb_image)
@@ -70,7 +70,6 @@ for sign in os.listdir(Data_dir):
                     data_aux.append(x - min(x_))
                     data_aux.append(y - min(y_))
                     
-            
             data.append(data_aux)
             labels.append(sign)
             
