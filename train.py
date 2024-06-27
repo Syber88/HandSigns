@@ -17,6 +17,8 @@ model.fit(x_train, y_train)
 
 y_predict = model.predict(x_test)
 
+score = accuracy_score(y_predict, y_test)
 
+print(f"{score*100}% classified correctly")
 
 
