@@ -21,4 +21,6 @@ score = accuracy_score(y_predict, y_test)
 
 print(f"{score*100}% classified correctly")
 
-
+f = open("model.pickle", "wb")
+pickle.dump("model",model,f)
+f.close()
