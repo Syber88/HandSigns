@@ -10,9 +10,9 @@ font_scale = 0.9
 color = (0, 0, 0)  
 thickness = 1
 
-image_classes = 3
+image_classes =4
 
-for i in range(image_classes):
+for i in range(1,image_classes):
     while True:
         ret, frame = cam.read()
         flip = cv2.flip(frame,1)
