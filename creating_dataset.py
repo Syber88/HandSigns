@@ -72,8 +72,14 @@ for sign in os.listdir(Data_dir):
                     
             data.append(data_aux)
             labels.append(sign)
-            
-            
-f = open("data.pickle", "wb")
-pickle.dump({"data": data, "labels": labels}, f)
-f.close()
+
+try:            
+    with open("./data.pickle", "wb") as f:
+        pickle.dump({"data": data, "labels": labels}, f)
+        
+except FileNotFoundError:
+    print(f"Error: The file {f} does not exist.")
+except pickle.UnpicklingError as e:
+    print(f"Error: Failed to unpickle the file: {e}")
+except Exception as e:
+    print(f"Error: An unexpected error occurred: {e}")

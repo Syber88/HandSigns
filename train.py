@@ -3,7 +3,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pickle
 import numpy as np
-from pprint import pprint
 
 data_file = pickle.load(open("./data.pickle", "rb"))
 
@@ -22,5 +21,5 @@ score = accuracy_score(y_predict, y_test)
 print(f"{score*100}% classified correctly")
 
 f = open("model.pickle", "wb")
-pickle.dump("model",model,f)
+pickle.dump({"model":model},f)
 f.close()
