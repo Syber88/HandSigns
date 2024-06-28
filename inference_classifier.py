@@ -57,20 +57,19 @@ while True:
                 x2 = int(max(x_) * W) - 10
                 y2 = int(max(y_) * H) - 10
             
-        prediction = model.predict([np.asarray(data_aux)])
-        predicted_letter = labels_dict[int(prediction[0])]
-        print(predicted_letter)
-        
-        
-        bgr_frame = cv2.cvtColor(frame_flip, cv2.COLOR_RGB2BGR)
-        cv2.rectangle(bgr_frame, (x1, y1), (x2, y2), (0,0,0), 4)
-        cv2.putText(bgr_frame, predicted_letter, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3, 
-                    cv2.LINE_AA)
+            prediction = model.predict([np.asarray(data_aux)])
+            predicted_letter = labels_dict[int(prediction[0])]
+            # print(predicted_letter)
             
+        
+            bgr_frame = cv2.cvtColor(frame_flip, cv2.COLOR_RGB2BGR)
+            cv2.rectangle(frame_flip, (x1, y1), (x2, y2), (0,0,0), 4)
+            cv2.putText(frame_flip, predicted_letter, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3, 
+                        cv2.LINE_AA)
+        
                     
-    cv2.imshow("frame", bgr_frame)
+    cv2.imshow("frame", frame_flip)
     if cv2.waitKey(1) == ord('q'):
         break
-     - 10
 video.release()
 cv2.destroyAllWindows()
