@@ -34,3 +34,18 @@ def draw_landmarks(image, results):
     mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
                               mp_drawing.DrawingSpec(color=(150,245,75), thickness=1, circle_radius=4),
                               mp_drawing.DrawingSpec(color=(220,76,56), thickness=1, circle_radius=2))
+    
+cap = cv2.VideoCapture(0)
+with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+    while cap.isOpened():
+        ret, frame = cap.read()
+        frame = cv2.flip(frame, 1)
+        
+        image, results = mediapipe_detection(frame, holistic)
+        draw_landmarks(image, results)
+        # print(len(results.left_hand_landmarks.landmark))
+        cv2.imshow("feed", image)
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+cap.release()
+cv2.destroyAllWindows()
