@@ -34,7 +34,14 @@ def draw_landmarks(image, results):
     mp_drawing.draw_landmarks(image, results.left_hand_landmarks, mp_holistic.HAND_CONNECTIONS,
                               mp_drawing.DrawingSpec(color=(150,245,75), thickness=1, circle_radius=4),
                               mp_drawing.DrawingSpec(color=(220,76,56), thickness=1, circle_radius=2))
-    
+
+def extract_keypoints(results):
+    pose = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmarks]).flatten() if results.pose_landmarks.landmark else np.zeros(132)
+    lh = np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmarks]).flatten() if results.left_hand_landmaeks.landmark else np.zeros(21*3)
+    rh = np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmarks]).flatten() if results.right_hand_landmaeks.landmark else np.zeros(21*3)
+    face = np.array([[res.x, res.y, res.z, res.visibility] for res in results.pose_landmarks.landmarks]).flatten() if results.face_landmaeks.landmark else np.zeros(1404)
+    return np.concatenate([pose, face, lh, rh])
+
 cap = cv2.VideoCapture(0)
 with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
     while cap.isOpened():
@@ -43,6 +50,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         
         image, results = mediapipe_detection(frame, holistic)
         draw_landmarks(image, results)
+        
         # print(len(results.left_hand_landmarks.landmark))
         cv2.imshow("feed", image)
         if cv2.waitKey(1) & 0xFF == ord("q"):
